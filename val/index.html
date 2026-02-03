@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💖</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 30px 25px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        width: 100%;
+        max-width: 420px;
+        z-index: 2;
+        position: relative;
+    }
+
+    h1 {
+        color: #ff4d6d;
+        margin-bottom: 15px;
+        font-size: 26px;
+    }
+
+    p {
+        font-size: 17px;
+        color: #444;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .yes {
+        background-color: #ff4d6d;
+        color: white;
+        font-weight: bold;
+    }
+
+    .no {
+        background-color: #f1f1f1;
+        color: #555;
+        position: relative;
+        transition: all 0.2s ease; /* Makes the "jump" smoother */
+    }
+
+    .heart {
+        position: absolute;
+        bottom: -20px;
+        font-size: 20px;
+        animation: floatUp 6s linear infinite;
+        opacity: 0.7;
+        pointer-events: none; /* Prevents hearts from blocking clicks */
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) rotate(0deg) scale(1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: translateY(-100vh) rotate(360deg) scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    .yes-screen {
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="mainCard">
+    <h1>Adelaide 💖</h1>
+    <img src="C:\Users\JAh\Desktop\val\val.jpeg" width="150">
+    <p>
+        From the very first moment you came into my life,<br>
+        you brought warmth, laughter, and peace I never knew I needed.<br><br>
+        Every smile of yours means the world to me, and every second with you
+        feels like a blessing.<br><br>
+        So today, with all my heart…<br>
+        <strong>will you be my Valentine?</strong> 🌹
+    </p>
+
+    <div class="buttons">
+        <button class="yes" onclick="yesClicked()">Yes 💘</button>
+        <button class="no" onmouseover="moveNo()" onclick="moveNo()">No 🙈</button>
+    </div>
+</div>
+
+<div class="card yes-screen" id="yesScreen">
+    <h1>💖 It’s a YES! 💖</h1>
+    <p>
+        Adelaide, thank you for choosing me.  
+        I promise to cherish you, laugh with you, and love you
+        not just today, but every day. 💕<br><br>
+        Happy Valentine’s Day, my love 🌹
+    </p>
+</div>
+
+<script>
+    function yesClicked() {
+        document.getElementById("mainCard").style.display = "none";
+        document.getElementById("yesScreen").style.display = "block";
+
+        const music = document.getElementById("music");
+        music.play().catch(error => console.log("Audio playback failed:", error));
+
+        createHearts();
+    }
+
+    function moveNo() {
+        const button = document.querySelector('.no');
+        // Calculate random position within the viewport
+        const x = Math.random() * (window.innerWidth - button.offsetWidth);
+        const y = Math.random() * (window.innerHeight - button.offsetHeight);
+        
+        button.style.position = 'fixed'; // Switch to fixed so it can move anywhere
+        button.style.left = `${x}px`;
+        button.style.top = `${y}px`;
+    }
+
+    function createHearts() {
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 15 + "px";
+            heart.style.animationDuration = (Math.random() * 3 + 3) + "s"; // Random speed
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 300);
+    }
+</script>
+
+</body>
+</html>
